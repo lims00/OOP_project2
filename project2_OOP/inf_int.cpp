@@ -5,15 +5,15 @@
 #include <stdlib.h>
 /*
 Originally written by
-ÄÄÇ»ÅÍ°øÇĞºÎ
-Á¤Áø°æ
+ì»´í“¨í„°ê³µí•™ë¶€
+ì •ì§„ê²½
 */
 
 inf_int::inf_int()
 {
-	this->digits = new char[2];	// µ¿ÀûÇÒ´ç
+	this->digits = new char[2];	// ë™ì í• ë‹¹
 
-	this->digits[0] = '0';		// default °ª 0 ¼³Á¤
+	this->digits[0] = '0';		// default ê°’ 0 ì„¤ì •
 	this->digits[1] = '\0';
 	this->length = 1;
 	this->thesign = true;
@@ -22,7 +22,7 @@ inf_int::inf_int()
 inf_int::inf_int(int n) {
 	char buf[100];
 
-	if (n < 0) {		// À½¼ö Ã³¸®
+	if (n < 0) {		// ìŒìˆ˜ ì²˜ë¦¬
 		this->thesign = false;
 		n = -n;
 	}
@@ -31,15 +31,15 @@ inf_int::inf_int(int n) {
 	}
 
 	int i = 0;
-	while (n > 0) {			// ¼ıÀÚ¸¦ ¹®ÀÚ¿­·Î º¯È¯ÇÏ´Â °úÁ¤
+	while (n > 0) {			// ìˆ«ìë¥¼ ë¬¸ìì—´ë¡œ ë³€í™˜í•˜ëŠ” ê³¼ì •
 		buf[i] = n % 10 + '0';
 
 		n /= 10;
 		i++;
 	}
 
-	if (i == 0) {	// ¼ıÀÚÀÇ Àı´ñ°ªÀÌ 0ÀÏ °æ¿ì
-		new (this) inf_int();	// »ı¼ºÀÚ ÀçÈ£Ãâ...gcc¿¡¼­ ÄÄÆÄÀÏ¿¡·¯°¡ ÀÖ´Ù°í ÇÔ. inf_int()ÀÇ °æ¿ì º°°³ÀÇ ÀÎ½ºÅÏ½º°¡ »ı¼ºµÊ. 
+	if (i == 0) {	// ìˆ«ìì˜ ì ˆëŒ“ê°’ì´ 0ì¼ ê²½ìš°
+		new (this) inf_int();	// ìƒì„±ì ì¬í˜¸ì¶œ...gccì—ì„œ ì»´íŒŒì¼ì—ëŸ¬ê°€ ìˆë‹¤ê³  í•¨. inf_int()ì˜ ê²½ìš° ë³„ê°œì˜ ì¸ìŠ¤í„´ìŠ¤ê°€ ìƒì„±ë¨. 
 	}
 	else {
 		buf[i] = '\0';
@@ -53,8 +53,8 @@ inf_int::inf_int(int n) {
 inf_int::inf_int(const char* str)
 {
 	// to be filled 
-	// ºÎÈ£ Ã³¸® 
-	// "100"ÀÌ µé¾î¿Ô´Ù¸é ³»ºÎ Ç¥Çö¿¡ ¸Â°Ô "001"·Î º¯È¯
+	// ë¶€í˜¸ ì²˜ë¦¬ 
+	// "100"ì´ ë“¤ì–´ì™”ë‹¤ë©´ ë‚´ë¶€ í‘œí˜„ì— ë§ê²Œ "001"ë¡œ ë³€í™˜
 	// ex) "-1053" -> thesign=false, digits="3501", len=4
 	unsigned int i;
 	if ((int)strlen(str) == 1 && str[0] == '0') {
@@ -93,13 +93,13 @@ inf_int::inf_int(const inf_int& a) {
 }
 
 inf_int::~inf_int() {
-	delete digits;		// ¸Ş¸ğ¸® ÇÒ´ç ÇØÁ¦
+	delete digits;		// ë©”ëª¨ë¦¬ í• ë‹¹ í•´ì œ
 }
 
 inf_int& inf_int::operator=(const inf_int& a)
 {
 	if (this->digits) {
-		delete this->digits;		// ÀÌ¹Ì ¹®ÀÚ¿­ÀÌ ÀÖÀ» °æ¿ì Á¦°Å.
+		delete this->digits;		// ì´ë¯¸ ë¬¸ìì—´ì´ ìˆì„ ê²½ìš° ì œê±°.
 	}
 	this->digits = new char[a.length + 1];
 
@@ -113,7 +113,7 @@ inf_int& inf_int::operator=(const inf_int& a)
 bool operator==(const inf_int& a, const inf_int& b)
 {
 	// we assume 0 is always positive.
-	if ((strcmp(a.digits, b.digits) == 0) && a.thesign == b.thesign)	// ºÎÈ£°¡ °°°í, Àı´ñ°ªÀÌ ÀÏÄ¡ÇØ¾ßÇÔ.
+	if ((strcmp(a.digits, b.digits) == 0) && a.thesign == b.thesign)	// ë¶€í˜¸ê°€ ê°™ê³ , ì ˆëŒ“ê°’ì´ ì¼ì¹˜í•´ì•¼í•¨.
 		return true;
 	return false;
 }
@@ -125,10 +125,10 @@ bool operator!=(const inf_int& a, const inf_int& b)
 
 bool operator>(const inf_int& a, const inf_int& b){
 	// to be filled
-	// Àı´ë°ª ºñ±³
-	// µÑ ´Ù ¾ç¼öÀÏ °æ¿ì Àı´ñ°ª ºñ±³ÇÑ °ÍÀ» ±×´ë·Î return
-	// µÑ ´Ù À½¼öÀÏ °æ¿ì Àı´ñ°ª ºñ±³ÀÇ °ÍÀ» ¹İÀüÇÏ¿© return
-	// ºÎÈ£°¡ ´Ù¸¦ °æ¿ì, a°¡ ¾ç¼öÀÏ °æ¿ì b´Â À½¼ö, a°¡ À½¼öÀÏ °æ¿ì b´Â ¾ç¼öÀÌ±â¿¡ aÀÇ ºÎÈ£Áø¸®°ªÀ» ¹İÈ¯ÇÏ¸é µÊ
+	// ì ˆëŒ€ê°’ ë¹„êµ
+	// ë‘˜ ë‹¤ ì–‘ìˆ˜ì¼ ê²½ìš° ì ˆëŒ“ê°’ ë¹„êµí•œ ê²ƒì„ ê·¸ëŒ€ë¡œ return
+	// ë‘˜ ë‹¤ ìŒìˆ˜ì¼ ê²½ìš° ì ˆëŒ“ê°’ ë¹„êµì˜ ê²ƒì„ ë°˜ì „í•˜ì—¬ return
+	// ë¶€í˜¸ê°€ ë‹¤ë¥¼ ê²½ìš°, aê°€ ì–‘ìˆ˜ì¼ ê²½ìš° bëŠ” ìŒìˆ˜, aê°€ ìŒìˆ˜ì¼ ê²½ìš° bëŠ” ì–‘ìˆ˜ì´ê¸°ì— aì˜ ë¶€í˜¸ì§„ë¦¬ê°’ì„ ë°˜í™˜í•˜ë©´ ë¨
 	unsigned int i;
 	if (a.length > b.length) {
 		if (a.thesign == true)  return true; 
@@ -172,7 +172,7 @@ inf_int operator+(const inf_int& a, const inf_int& b)
 	inf_int c;
 	unsigned int i;
 
-	if (a.thesign == b.thesign) {	// ÀÌÇ×ÀÇ ºÎÈ£°¡ °°À» °æ¿ì + ¿¬»êÀÚ·Î ¿¬»ê
+	if (a.thesign == b.thesign) {	// ì´í•­ì˜ ë¶€í˜¸ê°€ ê°™ì„ ê²½ìš° + ì—°ì‚°ìë¡œ ì—°ì‚°
 		for (i = 0; i < a.length; i++) {
 			c.Add(a.digits[i], i + 1);
 		}
@@ -184,7 +184,7 @@ inf_int operator+(const inf_int& a, const inf_int& b)
 
 		return c;
 	}
-	else {	// ÀÌÇ×ÀÇ ºÎÈ£°¡ ´Ù¸¦ °æ¿ì - ¿¬»êÀÚ·Î ¿¬»ê
+	else {	// ì´í•­ì˜ ë¶€í˜¸ê°€ ë‹¤ë¥¼ ê²½ìš° - ì—°ì‚°ìë¡œ ì—°ì‚°
 		c = b;
 		c.thesign = a.thesign;
 
@@ -236,7 +236,7 @@ inf_int operator-(const inf_int& a, const inf_int& b){//to be filled
 			for (i = 0; i < a.length; i++) {
 				c.Add(a.digits[i], i + 1);
 			}
-			for (i = 0; i < b.length; i++) {//a-b Áï c-bÁøÇà
+			for (i = 0; i < b.length; i++) {//a-b ì¦‰ c-bì§„í–‰
 				if (b.digits[i] > c.digits[i]) {
 					c.digits[i] = c.digits[i] + 10 - b.digits[i] + '0';
 					if (c.digits[i + 1] != '0') {
@@ -354,9 +354,103 @@ inf_int operator-(const inf_int& a, const inf_int& b){//to be filled
 
 }
 
-inf_int operator*(const inf_int& a, const inf_int& b)
-{
+inf_int operator*(const inf_int& a, const inf_int& b){
 	inf_int c;
+	inf_int result;
+	int k;
+	unsigned i=1;
+	unsigned j = 0;
+	unsigned longlength = 0;
+	unsigned int m = 0;
+	int multi = 0; //í°ìˆ˜
+	int num = 0; // í•˜ë‚˜ì”© ê³±í•´ì£¼ëŠ” ì‘ì€ ìˆ˜
+	int intnum = 0;
+	if (a.length > b.length) {
+		longlength = a.length;
+		for (i = 0; i <b.length; i++) {
+			
+			result.length = longlength+i;
+			result.digits = (char*)realloc(result.digits, result.length+1);
+			for ( k = 0; k < result.length; k++) {
+				result.digits[k] = '0';
+			}
+			result.digits[k] = '\0';
+			num = (unsigned int)(b.digits[i]-'0'); // resultì— b[i]ìë¦¬ìˆ˜ë¥¼ ê³±í•´ì¤€ë‹¤.
+			for ( m=0; m < longlength; m ++ ){
+				multi = (unsigned int)( a.digits[m]-'0');
+				intnum = num * multi;
+				result.digits[m+i] += (intnum % 10);
+
+				if (result.digits[m + i] > '9') {
+					result.digits[m + i] -= 10;
+					result.digits[m + i + 1] += 1;
+				}
+
+				result.digits[m+i+1] += (unsigned int)(intnum / 10);
+
+				if (result.digits[m + 1 + i] > '9') {
+					result.digits[m + i + 1] -= 10;
+					result.digits[m + i + 2] += 1;
+				}
+			}
+			for (unsigned int n = 0; n<result.length; n++) {
+				c.Add(result.digits[n], n + 1);
+			}
+			
+		}
+
+		if (a.thesign != b.thesign) {
+			c.thesign = false;
+		}
+		else c.thesign = true;
+
+	}
+	else {//bì˜ ê¸¸ì´ê°€ ë” ê¸¸ê±°ë‚˜ ê°™ì„ ë•Œ 
+		longlength =b.length;
+		
+		for (i = 0; i < a.length; i++) {
+
+			result.length = longlength + i;
+			result.digits = (char*)realloc(result.digits, result.length + 1);
+			for (k = 0; k < result.length; k++) {
+				result.digits[k] = '0';
+			}
+			result.digits[k] = '\0';
+			num = (unsigned int)(a.digits[i] - '0'); // resultì— b[i]ìë¦¬ìˆ˜ë¥¼ ê³±í•´ì¤€ë‹¤.
+			for (m = 0; m < longlength; m++) {
+				multi = (unsigned int)(b.digits[m] - '0');
+				intnum = num * multi;
+				result.digits[m + i] += (intnum % 10);
+
+				if (result.digits[m + i] > '9') {
+					result.digits[m + i] -= 10;
+					result.digits[m + i + 1] += 1;
+				}
+
+				result.digits[m + i + 1] += (unsigned int)(intnum / 10);
+
+				if (result.digits[m + 1 + i] > '9') {
+					result.digits[m + i + 1] -= 10;
+					result.digits[m + i + 2] += 1;
+				}
+			}
+			for (unsigned int n = 0; n < result.length; n++) {
+				c.Add(result.digits[n], n + 1);
+			}
+
+		}
+
+		if (a.thesign != b.thesign) {
+			c.thesign = false;
+		}
+		else c.thesign = true;
+
+
+	}
+	
+
+
+
 
 	return c;
 }
@@ -377,30 +471,30 @@ ostream& operator<<(ostream& out, const inf_int& a)
 
 
 
-void inf_int::Add(const char num, const unsigned int index)	// aÀÇ index ÀÚ¸®¼ö¿¡ nÀ» ´õÇÑ´Ù. 0<=n<=9, ex) a°¡ 391ÀÏ¶§, Add(a, 2, 2)ÀÇ °á°ú´Â 411
+void inf_int::Add(const char num, const unsigned int index)	// aì˜ index ìë¦¬ìˆ˜ì— nì„ ë”í•œë‹¤. 0<=n<=9, ex) aê°€ 391ì¼ë•Œ, Add(a, 2, 2)ì˜ ê²°ê³¼ëŠ” 411
 {
 	if (this->length < index) {
 		this->digits = (char*)realloc(this->digits, index + 1);
 
-		if (this->digits == NULL) {		// ÇÒ´ç ½ÇÆĞ ¿¹¿ÜÃ³¸®
+		if (this->digits == NULL) {		// í• ë‹¹ ì‹¤íŒ¨ ì˜ˆì™¸ì²˜ë¦¬
 			std::cout<< "Memory reallocation failed, the program will terminate." << std::endl;
 
 			exit(0);
 		}
 
-		this->length = index;					// ±æÀÌ ÁöÁ¤
-		this->digits[this->length] = '\0';	// ³Î¹®ÀÚ »ğÀÔ
+		this->length = index;					// ê¸¸ì´ ì§€ì •
+		this->digits[this->length] = '\0';	// ë„ë¬¸ì ì‚½ì…
 	}
 
-	if (this->digits[index - 1] < '0') {	// ¿¬»ê Àü¿¡ '0'º¸´Ù ÀÛÀº ¾Æ½ºÅ°°ªÀÎ °æ¿ì 0À¸·Î Ã¤¿ò. ¾²¿©ÁöÁö ¾Ê¾Ò´ø »õ·Î¿î ÀÚ¸®¼öÀÏ °æ¿ì ¹ß»ı
+	if (this->digits[index - 1] < '0') {	// ì—°ì‚° ì „ì— '0'ë³´ë‹¤ ì‘ì€ ì•„ìŠ¤í‚¤ê°’ì¸ ê²½ìš° 0ìœ¼ë¡œ ì±„ì›€. ì“°ì—¬ì§€ì§€ ì•Šì•˜ë˜ ìƒˆë¡œìš´ ìë¦¬ìˆ˜ì¼ ê²½ìš° ë°œìƒ
 		this->digits[index - 1] = '0';
 	}
 
-	this->digits[index - 1] += num - '0';	// °ª ¿¬»ê
+	this->digits[index - 1] += num - '0';	// ê°’ ì—°ì‚°
 
 
-	if (this->digits[index - 1] > '9') {	// ÀÚ¸®¿Ã¸²ÀÌ ¹ß»ıÇÒ °æ¿ì
-		this->digits[index - 1] -= 10;	// ÇöÀç ÀÚ¸´¼ö¿¡¼­ (¾Æ½ºÅ°°ª) 10À» »©°í
-		Add('1', index + 1);			// À­ÀÚ¸®¿¡ 1À» ´õÇÑ´Ù
+	if (this->digits[index - 1] > '9') {	// ìë¦¬ì˜¬ë¦¼ì´ ë°œìƒí•  ê²½ìš°
+		this->digits[index - 1] -= 10;	// í˜„ì¬ ìë¦¿ìˆ˜ì—ì„œ (ì•„ìŠ¤í‚¤ê°’) 10ì„ ë¹¼ê³ 
+		Add('1', index + 1);			// ìœ—ìë¦¬ì— 1ì„ ë”í•œë‹¤
 	}
 }
