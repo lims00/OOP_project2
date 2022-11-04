@@ -343,12 +343,15 @@ inf_int operator-(const inf_int& a, const inf_int& b){//to be filled
 	}
 	else {
 		if (a.thesign == false && b.thesign == true) {
+			c = b;
 			c.thesign = false;
-			return a + b;
+			
+			return a + c;
 		}
 		else {
+			c = b;
 			c.thesign = true;
-			return a + b;
+			return a + c;
 		}
 	}
 
