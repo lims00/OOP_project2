@@ -139,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="inf_int.cpp" />
+    <ClCompile Include="..\..\project2_OOP_2\project2_OOP_2\inf_int.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>

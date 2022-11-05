@@ -156,6 +156,7 @@ bool operator>(const inf_int& a, const inf_int& b){
 		if (a.thesign == false)  return true;
 		else return false;
 	}
+	return 0;
 }
 
 bool operator<(const inf_int& a, const inf_int& b){
@@ -223,7 +224,13 @@ inf_int operator-(const inf_int& a, const inf_int& b){//to be filled
 					c.digits[i] = '0';
 				}
 			}
-			if ((c.digits[i] == '0')&&(c.length==i))c.digits[i] = '\0';
+			for (i = c.length - 1; i > 0; i--) {
+				if (c.digits[i] == '0') {
+					c.digits[i] = '\0';
+					c.length -= 1;
+				}
+				else { break; }
+			}
 			if (a.thesign) {
 				c.thesign = false;
 			}
@@ -258,7 +265,13 @@ inf_int operator-(const inf_int& a, const inf_int& b){//to be filled
 					c.digits[i] = '0';
 				}
 			}
-			if ((c.digits[i] == '0')&&(c.length==i))c.digits[i] = '\0';
+			for (i = c.length - 1; i > 0; i--) {
+				if (c.digits[i] == '0') {
+					c.digits[i] = '\0';
+					c.length -= 1;
+				}
+				else { break; }
+			}
 			
 			if (a.thesign) {
 				c.thesign = true;
@@ -275,17 +288,17 @@ inf_int operator-(const inf_int& a, const inf_int& b){//to be filled
 				}
 				for (i = 0; i < b.length; i++) {//a-b
 					if (b.digits[i] > c.digits[i]) {
-						c.digits[i] = c.digits[i] + 10 - b.digits[i]+'0';
+						c.digits[i] = c.digits[i] + 10 - b.digits[i] + '0';
 						if (c.digits[i + 1] != '0') {
-							c.digits[i + 1] = c.digits[i + 1]-1;
+							c.digits[i + 1] = c.digits[i + 1] - 1;
 						}
 						else {
-							unsigned int j = i+1;
+							unsigned int j = i + 1;
 							while (c.digits[j] == '0') {
 								c.digits[j] = '9';
 								j++;
 							}
-							c.digits[j] = c.digits[j]-1;
+							c.digits[j] = c.digits[j] - 1;
 						}
 					}
 					else if (c.digits[i] > b.digits[i]) {
@@ -295,7 +308,13 @@ inf_int operator-(const inf_int& a, const inf_int& b){//to be filled
 						c.digits[i] = '0';
 					}
 				}
-				if ((c.digits[i] == '0') && (c.length == i))c.digits[i] = '\0';
+				for (i = c.length - 1; i > 0; i--) {
+					if (c.digits[i] == '0') {
+						c.digits[i] = '\0';
+						c.length -= 1;
+					}
+					else { break; }
+				}
 				if (a.thesign) {
 					c.thesign = true;
 				}
@@ -303,7 +322,8 @@ inf_int operator-(const inf_int& a, const inf_int& b){//to be filled
 					c.thesign = false;
 				}
 				return c;
-			}else {
+			}
+			else {
 				for (i = 0; i < b.length; i++) {
 					c.Add(a.digits[i], i + 1);
 				}
@@ -311,10 +331,10 @@ inf_int operator-(const inf_int& a, const inf_int& b){//to be filled
 					if (c.digits[i] < a.digits[i]) {
 						c.digits[i] = c.digits[i] + 10 - a.digits[i] + '0';
 						if (c.digits[i + 1] != '0') {
-							c.digits[i + 1] -=1;
+							c.digits[i + 1] -= 1;
 						}
 						else {
-							unsigned int j = i+1;
+							unsigned int j = i + 1;
 							while (c.digits[j] == '0') {
 								c.digits[j] = '9';
 								j++;
@@ -330,15 +350,23 @@ inf_int operator-(const inf_int& a, const inf_int& b){//to be filled
 					}
 				}
 
-				if ((c.digits[i] == '0') && (c.length == i))c.digits[i] = '\0';
+				for (i = c.length - 1; i > 0; i--) {
+					if (c.digits[i] == '0') {
+						c.digits[i] = '\0';
+						c.length -= 1;
+					}
+					else { break; }
+				}
 				if (a.thesign) {
 					c.thesign = false;
 				}
 				else {
 					c.thesign = true;
 				}
+
 				return c;
 			}
+
 		}
 	}
 	else {
@@ -401,12 +429,6 @@ inf_int operator*(const inf_int& a, const inf_int& b){
 			}
 			
 		}
-
-		if (a.thesign != b.thesign) {
-			c.thesign = false;
-		}
-		else c.thesign = true;
-
 	}
 	else {//b의 길이가 더 길거나 같을 때 
 		longlength =b.length;
@@ -443,15 +465,12 @@ inf_int operator*(const inf_int& a, const inf_int& b){
 
 		}
 
-		if (a.thesign != b.thesign) {
-			c.thesign = false;
-		}
-		else c.thesign = true;
-
-
 	}
 	
-
+	if (a.thesign != b.thesign) {
+		c.thesign = false;
+	}
+	else c.thesign = true;
 
 
 
